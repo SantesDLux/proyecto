@@ -4,10 +4,9 @@
  */
 package org.tecmn.santes.proyecto.view;
 
-/**
- *
- * @author Bebem
- */
+import javax.swing.JOptionPane;
+
+
 public class Menu extends javax.swing.JFrame {
 
     /**
@@ -26,133 +25,218 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
-        jSlider1 = new javax.swing.JSlider();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        btnGroupCantidad = new javax.swing.ButtonGroup();
+        lblTitle = new javax.swing.JLabel();
+        lblSubtitle = new javax.swing.JLabel();
+        lblDescription = new javax.swing.JLabel();
+        lblCantidad = new javax.swing.JLabel();
+        lblDocente = new javax.swing.JLabel();
+        lblMateria = new javax.swing.JLabel();
+        lblHorarioMateria = new javax.swing.JLabel();
+        lblFechaPrestamo = new javax.swing.JLabel();
+        lblFechaDevolucion = new javax.swing.JLabel();
+        lblAlumno = new javax.swing.JLabel();
+        txtAlumno = new javax.swing.JTextField();
+        cmbMateria = new javax.swing.JComboBox<>();
+        txtDevolucion = new javax.swing.JTextField();
+        sliderHorario = new javax.swing.JSlider();
+        txtDocente = new javax.swing.JTextField();
+        txtFechaPrestamo = new javax.swing.JTextField();
+        progressBar = new javax.swing.JProgressBar();
+        rbtnUno = new javax.swing.JRadioButton();
+        rbtnDos = new javax.swing.JRadioButton();
+        rbtnTres = new javax.swing.JRadioButton();
+        lblCategoria = new javax.swing.JLabel();
+        cmbCategoria = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemTabla = new javax.swing.JMenuItem();
+        menuItemSalir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(821, 612));
+        setName("Vale"); // NOI18N
         getContentPane().setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("campus Minatitlan");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 30, 820, 70);
+        lblTitle.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("campus Minatitlan");
+        getContentPane().add(lblTitle);
+        lblTitle.setBounds(0, 30, 820, 70);
 
-        jLabel3.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("INSTITUTO TECNOLOGICO DE MINATITLAN");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 820, 70);
+        lblSubtitle.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        lblSubtitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtitle.setText("INSTITUTO TECNOLOGICO DE MINATITLAN");
+        getContentPane().add(lblSubtitle);
+        lblSubtitle.setBounds(0, 0, 820, 70);
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
-        jLabel4.setText("Vale Para Solicitar, intrumentos, material y libros");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(190, 110, 440, 50);
+        lblDescription.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
+        lblDescription.setText("Vale Para Solicitar, intrumentos, material y libros");
+        getContentPane().add(lblDescription);
+        lblDescription.setBounds(200, 90, 440, 50);
 
-        jLabel5.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Cantidad");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(570, 190, 240, 50);
+        lblCantidad.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblCantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCantidad.setText("Cantidad");
+        getContentPane().add(lblCantidad);
+        lblCantidad.setBounds(530, 170, 240, 50);
 
-        jLabel6.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel6.setText("Docente");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(10, 300, 240, 50);
+        lblDocente.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblDocente.setText("Docente");
+        getContentPane().add(lblDocente);
+        lblDocente.setBounds(40, 290, 240, 50);
 
-        jLabel7.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel7.setText("Materia");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 510, 240, 50);
+        lblMateria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblMateria.setText("Materia");
+        getContentPane().add(lblMateria);
+        lblMateria.setBounds(280, 290, 240, 50);
 
-        jLabel8.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel8.setText("Horario de la Materia");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(10, 620, 240, 50);
+        lblHorarioMateria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblHorarioMateria.setText("Horario de la Materia");
+        getContentPane().add(lblHorarioMateria);
+        lblHorarioMateria.setBounds(530, 280, 240, 50);
 
-        jLabel9.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel9.setText("Fecha de prestamo");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(10, 730, 240, 50);
+        lblFechaPrestamo.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblFechaPrestamo.setText("Fecha de prestamo");
+        getContentPane().add(lblFechaPrestamo);
+        lblFechaPrestamo.setBounds(40, 400, 240, 50);
 
-        jLabel10.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel10.setText("Fecha de prestamo");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(10, 840, 240, 50);
+        lblFechaDevolucion.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblFechaDevolucion.setText("Fecha de devolución");
+        getContentPane().add(lblFechaDevolucion);
+        lblFechaDevolucion.setBounds(280, 400, 240, 50);
 
-        jLabel11.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel11.setText("Alumno ");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(10, 190, 240, 50);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(10, 240, 200, 40);
+        lblAlumno.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblAlumno.setText("Alumno ");
+        getContentPane().add(lblAlumno);
+        lblAlumno.setBounds(40, 170, 240, 50);
+        getContentPane().add(txtAlumno);
+        txtAlumno.setBounds(40, 220, 200, 40);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(10, 560, 200, 40);
-        getContentPane().add(jTextField4);
-        jTextField4.setBounds(10, 900, 200, 40);
-        getContentPane().add(jSlider1);
-        jSlider1.setBounds(10, 680, 230, 40);
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(10, 350, 200, 40);
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(10, 780, 200, 40);
-        getContentPane().add(jProgressBar1);
-        jProgressBar1.setBounds(0, 1000, 820, 70);
+        cmbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbMateria);
+        cmbMateria.setBounds(280, 340, 200, 40);
+        getContentPane().add(txtDevolucion);
+        txtDevolucion.setBounds(280, 450, 200, 40);
+        getContentPane().add(sliderHorario);
+        sliderHorario.setBounds(530, 340, 230, 40);
 
-        jRadioButton1.setText("1");
-        getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(640, 250, 39, 28);
-
-        jRadioButton2.setText("2");
-        getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(640, 280, 39, 28);
-
-        jRadioButton3.setText("3");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        txtDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                txtDocenteActionPerformed(evt);
             }
         });
-        getContentPane().add(jRadioButton3);
-        jRadioButton3.setBounds(640, 310, 40, 28);
+        getContentPane().add(txtDocente);
+        txtDocente.setBounds(40, 340, 200, 40);
+        getContentPane().add(txtFechaPrestamo);
+        txtFechaPrestamo.setBounds(40, 450, 200, 40);
+        getContentPane().add(progressBar);
+        progressBar.setBounds(0, 540, 820, 70);
 
-        jLabel12.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
-        jLabel12.setText("Objeto");
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(10, 400, 240, 50);
+        btnGroupCantidad.add(rbtnUno);
+        rbtnUno.setText("1");
+        getContentPane().add(rbtnUno);
+        rbtnUno.setBounds(580, 240, 29, 21);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox2);
-        jComboBox2.setBounds(10, 450, 200, 40);
+        btnGroupCantidad.add(rbtnDos);
+        rbtnDos.setText("2");
+        getContentPane().add(rbtnDos);
+        rbtnDos.setBounds(640, 240, 29, 21);
+
+        btnGroupCantidad.add(rbtnTres);
+        rbtnTres.setText("3");
+        rbtnTres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTresActionPerformed(evt);
+            }
+        });
+        getContentPane().add(rbtnTres);
+        rbtnTres.setBounds(690, 240, 40, 21);
+
+        lblCategoria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblCategoria.setText("Categoria");
+        getContentPane().add(lblCategoria);
+        lblCategoria.setBounds(280, 170, 240, 50);
+
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbCategoria);
+        cmbCategoria.setBounds(280, 220, 200, 40);
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton1.setText("Solicitar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(570, 430, 180, 60);
+
+        jMenu1.setText("File");
+
+        menuItemTabla.setText("Tabla");
+        menuItemTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTablaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemTabla);
+
+        menuItemSalir.setText("Salir");
+        menuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemSalir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Ayuda");
+
+        menuItemAcerca.setText("Acerca de");
+        menuItemAcerca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAcercaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemAcerca);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void rbtnTresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_rbtnTresActionPerformed
+
+    private void txtDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocenteActionPerformed
+
+    private void menuItemTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTablaActionPerformed
+        TablaDeDatos tablaFrame = new TablaDeDatos();
+        tablaFrame.setVisible(true);
+    }//GEN-LAST:event_menuItemTablaActionPerformed
+
+    private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuItemSalirActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void menuItemAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAcercaActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Software desarrollado para la materia de programacion visual");
+    }//GEN-LAST:event_menuItemAcercaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,27 +274,35 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.ButtonGroup btnGroupCantidad;
+    private javax.swing.JComboBox<String> cmbCategoria;
+    private javax.swing.JComboBox<String> cmbMateria;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblAlumno;
+    private javax.swing.JLabel lblCantidad;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblDocente;
+    private javax.swing.JLabel lblFechaDevolucion;
+    private javax.swing.JLabel lblFechaPrestamo;
+    private javax.swing.JLabel lblHorarioMateria;
+    private javax.swing.JLabel lblMateria;
+    private javax.swing.JLabel lblSubtitle;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JMenuItem menuItemAcerca;
+    private javax.swing.JMenuItem menuItemSalir;
+    private javax.swing.JMenuItem menuItemTabla;
+    private javax.swing.JProgressBar progressBar;
+    private javax.swing.JRadioButton rbtnDos;
+    private javax.swing.JRadioButton rbtnTres;
+    private javax.swing.JRadioButton rbtnUno;
+    private javax.swing.JSlider sliderHorario;
+    private javax.swing.JTextField txtAlumno;
+    private javax.swing.JTextField txtDevolucion;
+    private javax.swing.JTextField txtDocente;
+    private javax.swing.JTextField txtFechaPrestamo;
     // End of variables declaration//GEN-END:variables
 }

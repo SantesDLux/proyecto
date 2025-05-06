@@ -2,15 +2,11 @@ package org.tecmn.santes.proyecto;
 
 import javax.swing.*;
 import org.tecmn.santes.proyecto.bd.BDConexion;
+import org.tecmn.santes.proyecto.view.Menu;
 
 public class Proyecto {
     
-    /**
-     * Método principal que inicia la aplicación.
-     * @param args argumentos de línea de comandos (no utilizados)
-     */
     public static void main(String[] args) {
-        // Configurar look and feel nativo
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -33,25 +29,8 @@ public class Proyecto {
         
         // Lanzar GUI en el Event Dispatch Thread
         SwingUtilities.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
+            Menu mainFrame = new Menu();
             mainFrame.setVisible(true);
         });
-    }
-}
-
-/**
- * Clase que define la ventana principal de la aplicación.
- * Esta es una ventana vacía para verificar la conexión a la base de datos.
- */
-class MainFrame extends JFrame {
-    
-    public MainFrame() {
-        // Configurar ventana
-        setTitle("Sistema de Gestión de Materiales Prestados");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        
-        // Ventana vacía - sin componentes adicionales
     }
 }

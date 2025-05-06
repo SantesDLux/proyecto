@@ -7,7 +7,6 @@ import org.tecmn.santes.proyecto.repository.MaterialPrestadoRepository;
 import java.util.List;
 
 public class MaterialPrestadoController {
-
     private final MaterialPrestadoRepository repository;
 
     public MaterialPrestadoController() {
@@ -26,9 +25,9 @@ public class MaterialPrestadoController {
         return repository.obtenerPorId(id);
     }
 
-  //  public void actualizarMaterial(MaterialPrestado material) {
-   //     repository.actualizar(material);
-   // }
+    public void actualizarMaterial(MaterialPrestado material) {
+        repository.actualizar(material);
+    }
 
     public void eliminarMaterial(ObjectId id) {
         repository.eliminar(id);
