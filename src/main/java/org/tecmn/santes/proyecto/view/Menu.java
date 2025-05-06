@@ -4,16 +4,28 @@
  */
 package org.tecmn.santes.proyecto.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
-
+import javax.swing.Timer;
+import org.tecmn.santes.proyecto.controller.MaterialPrestadoController;
+import org.tecmn.santes.proyecto.model.MaterialPrestado;
 
 public class Menu extends javax.swing.JFrame {
+
+    private final MaterialPrestadoController controller;
 
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        this.controller = new MaterialPrestadoController();
+
     }
 
     /**
@@ -48,7 +60,11 @@ public class Menu extends javax.swing.JFrame {
         rbtnTres = new javax.swing.JRadioButton();
         lblCategoria = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnSolicitar = new javax.swing.JButton();
+        lblCategoria1 = new javax.swing.JLabel();
+        cmbCategoria1 = new javax.swing.JComboBox<>();
+        lblProducto = new javax.swing.JLabel();
+        txtProducto = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuItemTabla = new javax.swing.JMenuItem();
@@ -57,8 +73,9 @@ public class Menu extends javax.swing.JFrame {
         menuItemAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(821, 612));
+        setMinimumSize(new java.awt.Dimension(822, 717));
         setName("Vale"); // NOI18N
+        setResizable(false);
         getContentPane().setLayout(null);
 
         lblTitle.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
@@ -87,17 +104,17 @@ public class Menu extends javax.swing.JFrame {
         lblDocente.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblDocente.setText("Docente");
         getContentPane().add(lblDocente);
-        lblDocente.setBounds(40, 290, 240, 50);
+        lblDocente.setBounds(300, 290, 240, 50);
 
         lblMateria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblMateria.setText("Materia");
         getContentPane().add(lblMateria);
-        lblMateria.setBounds(280, 290, 240, 50);
+        lblMateria.setBounds(540, 290, 240, 50);
 
         lblHorarioMateria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblHorarioMateria.setText("Horario de la Materia");
         getContentPane().add(lblHorarioMateria);
-        lblHorarioMateria.setBounds(530, 280, 240, 50);
+        lblHorarioMateria.setBounds(160, 510, 240, 50);
 
         lblFechaPrestamo.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblFechaPrestamo.setText("Fecha de prestamo");
@@ -107,22 +124,33 @@ public class Menu extends javax.swing.JFrame {
         lblFechaDevolucion.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblFechaDevolucion.setText("Fecha de devolución");
         getContentPane().add(lblFechaDevolucion);
-        lblFechaDevolucion.setBounds(280, 400, 240, 50);
+        lblFechaDevolucion.setBounds(300, 400, 240, 50);
 
         lblAlumno.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblAlumno.setText("Alumno ");
         getContentPane().add(lblAlumno);
-        lblAlumno.setBounds(40, 170, 240, 50);
+        lblAlumno.setBounds(40, 290, 240, 50);
         getContentPane().add(txtAlumno);
-        txtAlumno.setBounds(40, 220, 200, 40);
+        txtAlumno.setBounds(40, 340, 200, 40);
 
-        cmbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "PROGRAMACION VISUAL", "CIRCUITOS ELECTR. I", "DISEÑO DIGITAL", "TEORIA ELECTROMAGNET", "MEDICIONES ELECTRICAS", "INSTRUMENTACION", "PLC" }));
         getContentPane().add(cmbMateria);
-        cmbMateria.setBounds(280, 340, 200, 40);
+        cmbMateria.setBounds(540, 340, 200, 40);
         getContentPane().add(txtDevolucion);
-        txtDevolucion.setBounds(280, 450, 200, 40);
+        txtDevolucion.setBounds(300, 450, 200, 40);
+
+        sliderHorario.setMajorTickSpacing(1);
+        sliderHorario.setMaximum(23);
+        sliderHorario.setPaintLabels(true);
+        sliderHorario.setPaintTicks(true);
+        sliderHorario.setValue(0);
+        sliderHorario.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                sliderHorarioComponentResized(evt);
+            }
+        });
         getContentPane().add(sliderHorario);
-        sliderHorario.setBounds(530, 340, 230, 40);
+        sliderHorario.setBounds(40, 570, 460, 50);
 
         txtDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,21 +158,21 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtDocente);
-        txtDocente.setBounds(40, 340, 200, 40);
+        txtDocente.setBounds(300, 340, 200, 40);
         getContentPane().add(txtFechaPrestamo);
         txtFechaPrestamo.setBounds(40, 450, 200, 40);
         getContentPane().add(progressBar);
-        progressBar.setBounds(0, 540, 820, 70);
+        progressBar.setBounds(0, 630, 820, 70);
 
         btnGroupCantidad.add(rbtnUno);
         rbtnUno.setText("1");
         getContentPane().add(rbtnUno);
-        rbtnUno.setBounds(580, 240, 29, 21);
+        rbtnUno.setBounds(570, 240, 50, 30);
 
         btnGroupCantidad.add(rbtnDos);
         rbtnDos.setText("2");
         getContentPane().add(rbtnDos);
-        rbtnDos.setBounds(640, 240, 29, 21);
+        rbtnDos.setBounds(630, 240, 50, 30);
 
         btnGroupCantidad.add(rbtnTres);
         rbtnTres.setText("3");
@@ -154,26 +182,58 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(rbtnTres);
-        rbtnTres.setBounds(690, 240, 40, 21);
+        rbtnTres.setBounds(690, 240, 50, 30);
 
         lblCategoria.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
         lblCategoria.setText("Categoria");
         getContentPane().add(lblCategoria);
-        lblCategoria.setBounds(280, 170, 240, 50);
+        lblCategoria.setBounds(40, 180, 240, 50);
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbCategoria);
-        cmbCategoria.setBounds(280, 220, 200, 40);
-
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jButton1.setText("Solicitar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Instrumentos", "Material", "Libros" }));
+        cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cmbCategoriaActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(570, 430, 180, 60);
+        getContentPane().add(cmbCategoria);
+        cmbCategoria.setBounds(40, 230, 200, 40);
+
+        btnSolicitar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        btnSolicitar.setText("Solicitar");
+        btnSolicitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSolicitar);
+        btnSolicitar.setBounds(540, 430, 180, 60);
+
+        lblCategoria1.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblCategoria1.setText("Categoria");
+        getContentPane().add(lblCategoria1);
+        lblCategoria1.setBounds(40, 180, 240, 50);
+
+        cmbCategoria1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Instrumentos", "Material", "Libros" }));
+        cmbCategoria1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCategoria1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbCategoria1);
+        cmbCategoria1.setBounds(40, 230, 200, 40);
+
+        lblProducto.setFont(new java.awt.Font("Courier New", 2, 18)); // NOI18N
+        lblProducto.setText("Producto a solicitar");
+        getContentPane().add(lblProducto);
+        lblProducto.setBounds(300, 180, 240, 50);
+
+        txtProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProductoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtProducto);
+        txtProducto.setBounds(300, 230, 200, 40);
 
         jMenu1.setText("File");
 
@@ -229,14 +289,59 @@ public class Menu extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_menuItemSalirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        int hora = sliderHorario.getValue();
+        MaterialPrestado miMaterial = new MaterialPrestado(
+                txtProducto.getText(),
+                txtAlumno.getText(),
+                cmbCategoria.getSelectedItem().toString(),
+                txtDocente.getText(),
+                cmbMateria.getSelectedItem().toString(),
+                obtenerCantidadSeleccionada(btnGroupCantidad),
+                txtFechaPrestamo.getText(),
+                hora + ":00",
+                txtDevolucion.getText());
+        controller.agregarMaterial(miMaterial);
+        Timer timer = new Timer(10, null); // Cada 10 ms
+        timer.addActionListener(new ActionListener() {
+            int progreso = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                progreso++;
+                progressBar.setValue(progreso);
+
+                if (progreso >= 100) {
+                    timer.stop(); // Detener al llegar al 100%
+                }
+            }
+        });
+        progressBar.setValue(0); // Reiniciar la barra por si se usa varias veces
+        timer.start(); // Iniciar el "llenado"
+        JOptionPane.showMessageDialog(null, "Objeto agregado");
+
+
+    }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void menuItemAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAcercaActionPerformed
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Software desarrollado para la materia de programacion visual");
     }//GEN-LAST:event_menuItemAcercaActionPerformed
+
+    private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoriaActionPerformed
+
+    private void cmbCategoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoria1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoria1ActionPerformed
+
+    private void txtProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProductoActionPerformed
+
+    private void sliderHorarioComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_sliderHorarioComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sliderHorarioComponentResized
 
     /**
      * @param args the command line arguments
@@ -275,21 +380,24 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupCantidad;
+    private javax.swing.JButton btnSolicitar;
     private javax.swing.JComboBox<String> cmbCategoria;
+    private javax.swing.JComboBox<String> cmbCategoria1;
     private javax.swing.JComboBox<String> cmbMateria;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblAlumno;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblCategoria1;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblDocente;
     private javax.swing.JLabel lblFechaDevolucion;
     private javax.swing.JLabel lblFechaPrestamo;
     private javax.swing.JLabel lblHorarioMateria;
     private javax.swing.JLabel lblMateria;
+    private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblSubtitle;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JMenuItem menuItemAcerca;
@@ -304,5 +412,21 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField txtDevolucion;
     private javax.swing.JTextField txtDocente;
     private javax.swing.JTextField txtFechaPrestamo;
+    private javax.swing.JTextField txtProducto;
     // End of variables declaration//GEN-END:variables
+
+    public int obtenerCantidadSeleccionada(ButtonGroup grupo) {
+        ButtonModel selectedModel = grupo.getSelection();
+        if (selectedModel != null) {
+            Enumeration<AbstractButton> buttons = grupo.getElements();
+            while (buttons.hasMoreElements()) {
+                AbstractButton button = buttons.nextElement();
+                if (button.getModel() == selectedModel) {
+                    return Integer.parseInt(button.getText());
+                }
+            }
+        }
+        return -1; // Si no hay nada seleccionado
+    }
+
 }

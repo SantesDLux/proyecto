@@ -4,11 +4,14 @@
  */
 package org.tecmn.santes.proyecto.view;
 
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import org.tecmn.santes.proyecto.controller.MaterialPrestadoController;
 import org.tecmn.santes.proyecto.model.MaterialPrestado;
 
@@ -18,12 +21,12 @@ import org.tecmn.santes.proyecto.model.MaterialPrestado;
  */
 public class TablaDeDatos extends javax.swing.JFrame {
 
-    private MaterialPrestadoController controller;
+    private final MaterialPrestadoController controller;
 
     public TablaDeDatos() {
         initComponents();
+        this.controller = new MaterialPrestadoController();
         cargarDatosEnTabla();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -32,7 +35,7 @@ public class TablaDeDatos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         miTabla = new javax.swing.JTable();
-        btnVerificarMongoDB = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -70,10 +73,10 @@ public class TablaDeDatos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(miTabla);
 
-        btnVerificarMongoDB.setText("Verificar");
-        btnVerificarMongoDB.addActionListener(new java.awt.event.ActionListener() {
+        btnRemove.setText("Eliminar");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerificarMongoDBActionPerformed(evt);
+                btnRemoveActionPerformed(evt);
             }
         });
 
@@ -107,15 +110,14 @@ public class TablaDeDatos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE)
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVerificarMongoDB)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRemove))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +125,7 @@ public class TablaDeDatos extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnVerificarMongoDB)
+                .addComponent(btnRemove)
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -140,9 +142,31 @@ public class TablaDeDatos extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Software desarrollado para la materia de programacion visual");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void btnVerificarMongoDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarMongoDBActionPerformed
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnVerificarMongoDBActionPerformed
+        String id = miTabla.getValueAt(miTabla.getSelectedRow(), 0).toString();
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de eliminar este material?\nEsta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Convertir el String a ObjectId y eliminar
+            org.bson.types.ObjectId objectId = new org.bson.types.ObjectId(id);
+
+            // Llamar al método del controlador para eliminar el material
+            controller.eliminarMaterial(objectId);
+
+            JOptionPane.showMessageDialog(this,
+                    "Material eliminado correctamente.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            cargarDatosEnTabla();
+
+        }
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,7 +204,7 @@ public class TablaDeDatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVerificarMongoDB;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -190,10 +214,21 @@ public class TablaDeDatos extends javax.swing.JFrame {
     private javax.swing.JTable miTabla;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Carga los datos de los materiales prestados en la tabla
+     */
     private void cargarDatosEnTabla() {
-        controller = new MaterialPrestadoController();
-
         try {
+            // Verificar que el controlador esté inicializado
+            if (this.controller == null) {
+                System.err.println("Error: el controlador no está inicializado");
+                JOptionPane.showMessageDialog(this,
+                        "Error: No se pudo conectar con la base de datos",
+                        "Error de conexión",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Crear un modelo de tabla no editable por defecto
             DefaultTableModel modelo = new DefaultTableModel() {
                 @Override
@@ -214,11 +249,23 @@ public class TablaDeDatos extends javax.swing.JFrame {
             modelo.addColumn("Hora Entrega");
             modelo.addColumn("Fecha Devolución");
 
-            // Obtener datos
-            List<MaterialPrestado> materiales = new ArrayList<>();
+            // Obtener datos de la base de datos
+            List<MaterialPrestado> materiales = null;
             try {
                 materiales = controller.obtenerMateriales();
-                System.out.println("Cantidad de materiales obtenidos: " + materiales.size());
+                System.out.println("Cantidad de materiales obtenidos: "
+                        + (materiales != null ? materiales.size() : "null"));
+
+                // Verificar si la lista está vacía
+                if (materiales == null || materiales.isEmpty()) {
+                    System.out.println("No se encontraron materiales para mostrar");
+                    JOptionPane.showMessageDialog(this,
+                            "No hay materiales para mostrar.",
+                            "Información",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    miTabla.setModel(modelo);
+                    return;
+                }
             } catch (Exception e) {
                 System.err.println("Error al obtener materiales: " + e.getMessage());
                 e.printStackTrace();
@@ -226,43 +273,87 @@ public class TablaDeDatos extends javax.swing.JFrame {
                         "Error al cargar datos: " + e.getMessage(),
                         "Error de Base de Datos",
                         JOptionPane.ERROR_MESSAGE);
+                miTabla.setModel(modelo);
+                return;
             }
 
             // Agregar filas al modelo
             for (MaterialPrestado m : materiales) {
                 try {
+                    if (m == null) {
+                        System.out.println("Se encontró un material nulo, continuando...");
+                        continue;
+                    }
+
                     Object[] fila = new Object[10];
-                    fila[0] = m.get_id().toHexString(); // Usar get_id() en lugar de getId()
-                    fila[1] = m.getNombre_producto();
-                    fila[2] = m.getNombre_solicitante();
-                    fila[3] = m.getCategoria();
-                    fila[4] = m.getNombre_docente();
-                    fila[5] = m.getNombre_materia();
+                    // Manejo seguro del ID
+                    fila[0] = (m.get_id() != null) ? m.get_id().toHexString() : "N/A";
+                    fila[1] = m.getNombre_producto() != null ? m.getNombre_producto() : "";
+                    fila[2] = m.getNombre_solicitante() != null ? m.getNombre_solicitante() : "";
+                    fila[3] = m.getCategoria() != null ? m.getCategoria() : "";
+                    fila[4] = m.getNombre_docente() != null ? m.getNombre_docente() : "";
+                    fila[5] = m.getNombre_materia() != null ? m.getNombre_materia() : "";
                     fila[6] = m.getCantidad();
-                    fila[7] = m.getFecha_prestamo();
-                    fila[8] = m.getHora_entrega();
-                    fila[9] = m.getFecha_devolucion();
+                    fila[7] = m.getFecha_prestamo() != null ? m.getFecha_prestamo() : "";
+                    fila[8] = m.getHora_entrega() != null ? m.getHora_entrega() : "";
+                    fila[9] = m.getFecha_devolucion() != null ? m.getFecha_devolucion() : "";
 
                     modelo.addRow(fila);
-                    System.out.println("Fila agregada: " + m.getNombre_producto());
                 } catch (Exception e) {
                     System.err.println("Error al procesar material: " + e.getMessage());
                     e.printStackTrace();
+                    // Continuar con el siguiente material
                 }
+            }
+
+            // Verificar que la tabla no sea nula antes de asignarle el modelo
+            if (miTabla == null) {
+                System.err.println("Error: el componente de tabla no está inicializado");
+                return;
             }
 
             // Asignar el modelo a la tabla
             miTabla.setModel(modelo);
 
-            // Ajustar el ancho de las columnas automáticamente
-            miTabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+            // Mejorar la apariencia de la tabla
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            // Refrescar la tabla
+            // Configurar cada columna
+            for (int i = 0; i < miTabla.getColumnCount(); i++) {
+                TableColumn column = miTabla.getColumnModel().getColumn(i);
+                column.setCellRenderer(centerRenderer);
+
+                // Ajustar anchos según el tipo de columna
+                switch (i) {
+                    case 0: // ID
+                        column.setPreferredWidth(80);
+                        break;
+                    case 6: // Cantidad
+                        column.setPreferredWidth(70);
+                        break;
+                    case 7: // Fecha Préstamo
+                    case 8: // Hora Entrega
+                    case 9: // Fecha Devolución
+                        column.setPreferredWidth(120);
+                        break;
+                    default:
+                        column.setPreferredWidth(150);
+                        break;
+                }
+            }
+
+            // Configuración adicional de la tabla
+            miTabla.setRowHeight(25);
+            miTabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            miTabla.getTableHeader().setReorderingAllowed(false);
+            miTabla.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+            // Actualizar la interfaz de usuario
             miTabla.repaint();
+            miTabla.revalidate();
 
             System.out.println("Tabla cargada con " + modelo.getRowCount() + " filas");
-
-            this.miTabla.updateUI();
 
         } catch (Exception e) {
             System.err.println("Error general al cargar la tabla: " + e.getMessage());
